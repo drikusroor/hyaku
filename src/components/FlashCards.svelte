@@ -85,11 +85,32 @@
 		}
 	}
 
+	function getAnswerTranslation(sentence: Sentence, currentLanguage: LanguageCode) {
+		if (sentence[currentLanguage]) {
+			return sentence[currentLanguage];
+		}
+
+		if (sentence['en']) {
+			return sentence['en'];
+		}
+
+		if (sentence['nl']) {
+			return sentence['nl'];
+		}
+
+		const firstAvailableLanguage = languages.find((language) => sentence[language.code]);
+		if (firstAvailableLanguage && sentence[firstAvailableLanguage.code]) {
+			return sentence[firstAvailableLanguage.code];
+		}
+
+		return ['No translation']; // Added return for cases where the translation is not found
+	}
+
 	function getQuestionText(currentSentence: Sentence, { learningMode = 'from', showPronunciation = true }) {
 		let questionText = currentSentence.q;
 
 		if (learningMode === 'to') {
-			questionText = currentSentence[currentLanguage].join(' / ');
+			questionText = getAnswerTranslation(currentSentence, currentLanguage).join(' / ');
 		}
 
 		if (!showPronunciation) {
@@ -237,7 +258,7 @@
 		}
 
 		if (learningMode === 'from') {
-			isCorrect = currentSentence[currentLanguage].some(
+			isCorrect = getAnswerTranslation(currentSentence, currentLanguage).some(
 				(translation) => levenshtein(userAnswer.toLowerCase(), translation.toLowerCase()) <= 2
 			);
 		} else {
@@ -258,7 +279,7 @@
 		}
 
 		const correctAnswers =
-			learningMode === 'from' ? currentSentence[currentLanguage].join(', ') : currentSentence.q;
+			learningMode === 'from' ? getAnswerTranslation(currentSentence, currentLanguage).join(', ') : currentSentence.q;
 
 		if (isCorrect) {
 			const correctTranslation = getTranslation('correct', 'Correct!');
@@ -570,7 +591,7 @@
 						class="bg-slate-800 p-4 rounded-md shadow-md text-white text-lg font-medium flex items-center justify-between"
 					>
 						<div class="text-xl">{sentence.q}</div>
-						<div class="text-pink-400">{sentence[currentLanguage].join(' / ')}</div>
+						<div class="text-pink-400">{getAnswerTranslation(sentence, currentLanguage).join(' / ')}</div>
 					</li>
 				{/each}
 			</ul>

@@ -9,7 +9,7 @@
 	>
 		<h1 id="title" class="text-4xl font-bold mb-2 text-pink-400">百 - Hyaku</h1>
 		<h2 id="subTitle" class="text-md font-semibold text-purple-500 tracking-wider">
-			This site allows you to learn Japanese and Esperanto vocabulary in a fun and easy way.
+			This site allows you to learn Japanese, Esperanto and Dutch vocabulary in a fun and easy way.
 		</h2>
 	</div>
 
@@ -30,6 +30,12 @@
 			href="{base}/esperanto"
 			class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-pink-600 focus:outline-none focus:border-pink-700 focus:ring focus:ring-purple-400 active:bg-pink-700 transition duration-150 ease-in-out"
 			>Esperanto</a
+		>
+
+		<a
+			href="{base}/dutch"
+			class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-pink-600 focus:outline-none focus:border-pink-700 focus:ring focus:ring-purple-400 active:bg-pink-700 transition duration-150 ease-in-out"
+			>Dutch</a
 		>
 	</div>
 </div>
